@@ -197,7 +197,7 @@ export const objectType = ({
 
 type GMCompositeArgs = {
   typeDef: string | TypeDefinitionNode;
-  resolveType?: { [resolverName: string]: Function };
+  resolveType?: Function;
   dependencies?: { [depName: string]: string };
 };
 

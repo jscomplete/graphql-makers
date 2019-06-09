@@ -7,5 +7,6 @@
     "alwaysStrict": true,
     "moduleResolution": "node",
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["src/**/*.test.ts"]
 }
