@@ -1,0 +1,21 @@
+{
+  "name": "graphql-makers",
+  "version": "0.0.3",
+  "description": "Functions to make GraphQL types based on schema-language definitions",
+  "main": "lib/index.js",
+  "repository": "jscomplete/graphql-makers",
+  "author": "Samer Buna <samer@jscomplete.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf lib && tsc"
+  },
+  "peerDependencies": {
+    "graphql": "^14.3.0"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.2.0",
+    "@types/node": "^12.0.7",
+    "graphql": "^14.3.1",
+    "typescript": "^3.5.1"
+  }
+}
