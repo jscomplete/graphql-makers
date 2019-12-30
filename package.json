@@ -1,6 +1,6 @@
 {
   "name": "graphql-makers",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Functions to make GraphQL types based on schema-language definitions",
   "main": "lib/index.js",
   "repository": "jscomplete/graphql-makers",
@@ -8,18 +8,22 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "rm -rf lib && tsc"
+    "build": "rm -rf lib && tsc",
+    "eslint:check": "eslint \"src/**/*.{ts,js}\" ",
+    "prettier:check": "prettier -c \"src/**/*.{ts,js,json,yml,graphql}\""
   },
   "peerDependencies": {
     "graphql": "^14.3.0"
   },
   "devDependencies": {
-    "@types/graphql": "^14.2.0",
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.7",
-    "graphql": "^14.3.1",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1"
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.1",
+    "@typescript-eslint/parser": "^2.13.0",
+    "eslint": "^6.8.0",
+    "graphql": "^14.5.8",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.4"
   }
 }

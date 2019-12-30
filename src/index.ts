@@ -6,9 +6,6 @@ import {
   GraphQLUnionType,
   GraphQLInterfaceType,
   GraphQLScalarType,
-  GraphQLFieldConfigMap,
-  TypeDefinitionNode,
-  GraphQLSchemaConfig,
 } from 'graphql';
 
 import { ASTDefinitionBuilder } from 'graphql/utilities/buildASTSchema';
@@ -19,19 +16,20 @@ import { ASTDefinitionBuilder } from 'graphql/utilities/buildASTSchema';
 
 // Temp Types are used to "delay" the requiring
 // of custom modules until we're within the thunks
-const TempType = typeName =>
+const TempType = (typeName) =>
   new GraphQLScalarType({
     name: '_TMP__' + typeName,
     serialize: () => {},
   });
 const tempTypesCache = Object.create(null);
-const buildType = source => {
-  const astBuilder = new ASTDefinitionBuilder({}, typeName => {
-    if (!tempTypesCache[typeName]) {
-      const tempType = TempType(typeName);
-      tempTypesCache[typeName] = tempType;
+const buildType = (source) => {
+  const astBuilder = new ASTDefinitionBuilder({}, (typeName) => {
+    const typeNameValue = typeName.toString();
+    if (!tempTypesCache[typeNameValue]) {
+      const tempType = TempType(typeNameValue);
+      tempTypesCache[typeNameValue] = tempType;
     }
-    return tempTypesCache[typeName];
+    return tempTypesCache[typeNameValue];
   });
 
   const typeDef =
@@ -58,7 +56,7 @@ const resolveTypeDependencies = (type, dependencies) => {
 const extendObjectType = (
   origType: GraphQLObjectType,
   resolvers,
-  dependencies
+  dependencies,
 ): GraphQLObjectType => {
   const config = origType.toConfig();
   return new GraphQLObjectType({
@@ -86,7 +84,7 @@ const extendObjectType = (
 const extendUnionType = (
   origType: GraphQLUnionType,
   resolveType,
-  dependencies
+  dependencies,
 ): GraphQLUnionType => {
   const config = origType.toConfig();
   return new GraphQLUnionType({
@@ -105,7 +103,7 @@ const extendUnionType = (
 const extendInterfaceType = (
   origType: GraphQLInterfaceType,
   resolveType,
-  dependencies
+  dependencies,
 ): GraphQLInterfaceType => {
   const config = origType.toConfig();
   return new GraphQLInterfaceType({
@@ -130,7 +128,7 @@ const extendInterfaceType = (
 
 const extendEnumType = (
   origType: GraphQLEnumType,
-  enumValues
+  enumValues,
 ): GraphQLEnumType => {
   const config = origType.toConfig();
   const values = Object.create(null);
@@ -190,7 +188,7 @@ export const objectType = ({
     ? extendObjectType(
         _objectType as GraphQLObjectType,
         resolvers,
-        dependencies
+        dependencies,
       )
     : _objectType;
 };
@@ -210,7 +208,7 @@ export const interfaceType = ({
   return extendInterfaceType(
     _interfaceType as GraphQLInterfaceType,
     resolveType,
-    dependencies
+    dependencies,
   );
 };
 
@@ -223,13 +221,13 @@ export const unionType = ({
   return extendUnionType(
     _unionType as GraphQLUnionType,
     resolveType,
-    dependencies
+    dependencies,
   );
 };
 
 export const enumType = (
   typeDef: string,
-  enumValues: {} = {}
+  enumValues: {} = {},
 ): GraphQLEnumType => {
   const _enumType = buildType(typeDef);
   return enumValues

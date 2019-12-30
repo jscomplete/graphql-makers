@@ -77,7 +77,7 @@ test('enumType', () => {
         VALUE2
       }
     `,
-    { VALUE1: 42 }
+    { VALUE1: 42 },
   ).toConfig();
 
   expect(GMType.values.VALUE1.value).toBe(42);
@@ -91,7 +91,7 @@ test('inputType', () => {
         input1: String
         input2: Int
       }
-    `
+    `,
   ).toConfig();
 
   expect(GMType.fields.input1.type.toString()).toBe('String');
